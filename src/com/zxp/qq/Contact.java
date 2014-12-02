@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 public class Contact extends ListFragment{
     private ListView lv;
@@ -56,6 +57,5 @@ public class Contact extends ListFragment{
 		
 		return list;
 	}
-	
 
 }
