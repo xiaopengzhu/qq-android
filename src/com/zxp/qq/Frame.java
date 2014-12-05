@@ -2,7 +2,6 @@ package com.zxp.qq;
 
 import java.util.Arrays;
 
-import android.R.integer;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
@@ -14,9 +13,12 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AnimationSet;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,13 +35,14 @@ public class Frame extends FragmentActivity{
     //侧滑常量
     private int screenWidth; //屏幕宽度
     private View menu; //菜单视图
-    private LinearLayout.LayoutParams menuParams;//menu参数
+    private RelativeLayout.LayoutParams menuParams;//menu参数
     private int menuWidth;//菜单最大宽度
     private View content;//内容视图
     private float xStart;//按下时X坐标
     private float xMove;//移动时X坐标
     private float xEnd;//松开时X坐标
     final int MIN_DISTANCE = 200;
+    private boolean menuState = false;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +111,7 @@ public class Frame extends FragmentActivity{
 		menu = findViewById(R.id.menu);
 		
 		//隐藏左边菜单
-		menuParams = (LinearLayout.LayoutParams) menu.getLayoutParams();
+		menuParams = (RelativeLayout.LayoutParams) menu.getLayoutParams();
 		menuParams.leftMargin = -menuParams.width;
 		menuWidth = menuParams.width;
 
@@ -122,23 +125,25 @@ public class Frame extends FragmentActivity{
 			case MotionEvent.ACTION_DOWN://手指按下
 				xStart = event.getRawX();
 				break;
+				
 			case MotionEvent.ACTION_MOVE://手指移动, 如果和初始值差为200就滑出
 				xMove = event.getRawX();
-				int distance =(int)(xMove - xStart);
-				if (distance > menuWidth) distance = menuWidth;
-				if (distance < -menuWidth) distance = -menuWidth;
-				menuParams.leftMargin = distance;
-				//滑动超过一半距离时 
-				if (Math.abs(distance) > menuWidth/2) {
-				    menu.setLayoutParams(menuParams);
-				}
+				int distance = (int)(xMove - xStart);
+				if (Math.abs(distance) >= menuWidth) return false;
+				//menuParams.leftMargin = -menuWidth + distance;
+				//menu.setLayoutParams(menuParams);
+				toggleMenu(true);
 				break;
-			case MotionEvent.ACTION_UP://手指松开
 				
+			case MotionEvent.ACTION_UP://手指松开
+				xEnd = event.getRawX();
+				distance =(int)(xEnd - xStart);
 				break;
 
 			default:
+				
 				break;
+				
 		}
 		
 		return false;
@@ -162,6 +167,16 @@ public class Frame extends FragmentActivity{
 		} else {
 			
 		}
+		AnimationSet amts = new AnimationSet(true);
+		TranslateAnimation tlamt = new TranslateAnimation(
+				AnimationSet.RELATIVE_TO_SELF, 0f,
+				AnimationSet.RELATIVE_TO_SELF, 1.5f,
+				AnimationSet.RELATIVE_TO_SELF,0f,
+				AnimationSet.RELATIVE_TO_SELF, 0f
+		);
+		tlamt.setDuration(1000);
+		amts.addAnimation(tlamt);
+		menu.startAnimation(amts);
 	}
 
 }
