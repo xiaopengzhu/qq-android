@@ -21,8 +21,9 @@ public class Main extends Activity {
     }
     
     public void login(View v) {
-    	Intent intent = new Intent(Main.this, Welcome.class);
+    	Intent intent = new Intent(Main.this, Frame.class);
         startActivity(intent);
+        /*
         this.finish();
         if (username.getText().toString().equals("zxp") && password.getText().toString().equals("123")) {
             //Intent intent = new Intent(Main.this, Welcome.class);
@@ -30,7 +31,7 @@ public class Main extends Activity {
             this.finish();
         } else {
             Toast.makeText(getApplicationContext(), "用户名或密码错误", Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
     
     public void register(View v) {
