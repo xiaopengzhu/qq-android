@@ -21,7 +21,7 @@ public class Main extends Activity {
     }
     
     public void login(View v) {
-    	Intent intent = new Intent(Main.this, Frame.class);
+        Intent intent = new Intent(Main.this, Frame.class);
         startActivity(intent);
         /*
         this.finish();

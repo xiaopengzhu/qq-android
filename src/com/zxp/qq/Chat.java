@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 
 public class Chat extends Fragment{
 
-	@Override
-	public View onCreateView(LayoutInflater inflater,
-			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		return inflater.inflate(R.layout.fragement_chat, null);
-	}
+    @Override
+    public View onCreateView(LayoutInflater inflater,
+            @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        return inflater.inflate(R.layout.fragement_chat, null);
+    }
 
 }
