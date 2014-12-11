@@ -93,7 +93,6 @@ public class Frame extends FragmentActivity{
 
     }
     
-    
     //生成Tab按钮
     private View getTabView(int index) {
         View view = LayoutInflater.from(this).inflate(R.layout.tabhost_item, null);
